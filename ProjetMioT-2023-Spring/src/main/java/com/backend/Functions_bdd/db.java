@@ -41,7 +41,7 @@ public class db {
             logger.debug("Impossible de se connecter à la BDD");
             throw e;
         }
-        logger.debug("connection à base de données ok");
+        logger.debug("connection à la base de données ok");
     }
     public static void deconnect() throws Exception{
         try {
@@ -54,9 +54,9 @@ public class db {
     }
 
 
-    public static void addUser(String email ,String name,String password,String role ,String number,String address)throws Exception {
+    public static void addUser(String email ,String username,String nom , String prenom,String password,String role ,String number,String address)throws Exception {
         Statement s;
-        String sql =  String.format("INSERT INTO users (email,name,password,role,number,address) values('%1$s','%2$s','%3$s','%4$s','%5$s','%6$s')",email,name,password,role,number,address);
+        String sql =  String.format("INSERT INTO users (email,username,password,role,number,address,nom,prenom) values('%1$s','%2$s','%3$s','%4$s','%5$s','%6$s','%7$s','%8$s')",email,username,password,role,number,address,nom,prenom);
         try {
             s = con.createStatement();
             s.execute(sql);
@@ -89,9 +89,33 @@ public class db {
         }
     }
     
-    public static void modifyNameUser(int id,String name) throws Exception{
+    public static void modifyUsernameUser(int id,String username) throws Exception{
         Statement s;
-        String sql =  String.format("UPDATE users set name='%1$s' WHERE id=%2$d",name,id);
+        String sql =  String.format("UPDATE users set username='%1$s' WHERE id=%2$d",username,id);
+        try {
+            s = con.createStatement();
+            s.execute(sql);
+        } catch (SQLException e) {
+            logger.debug("erreur dans la requête sql");
+            throw e;
+        }
+    }
+
+    public static void modifyNomUser(int id,String nom) throws Exception{
+        Statement s;
+        String sql =  String.format("UPDATE users set nom='%1$s' WHERE id=%2$d",nom,id);
+        try {
+            s = con.createStatement();
+            s.execute(sql);
+        } catch (SQLException e) {
+            logger.debug("erreur dans la requête sql");
+            throw e;
+        }
+    }
+
+    public static void modifyPrenomUser(int id,String prenom) throws Exception{
+        Statement s;
+        String sql =  String.format("UPDATE users set prenom='%1$s' WHERE id=%2$d",prenom,id);
         try {
             s = con.createStatement();
             s.execute(sql);
@@ -153,7 +177,7 @@ public class db {
 
     public static ArrayList<User> getAllUser() throws Exception{
         Statement s;
-        String sql = "select id,email,name,number,role,address from users ";
+        String sql = "select id,email,username,nom,prenom,number,role,address from users ";
         ArrayList<User> result = new ArrayList<User>();
         try {
             s = con.createStatement();
@@ -162,7 +186,9 @@ public class db {
                 result.add(new User(
                         resultSet.getInt("id"),
                         resultSet.getString("email"),
-                        resultSet.getString("name"),
+                        resultSet.getString("username"),
+                        resultSet.getString("nom"),
+                        resultSet.getString("prenom"),
                         resultSet.getString("role"),
                         resultSet.getString("number"),
                         resultSet.getString("address")
@@ -175,10 +201,10 @@ public class db {
         return result;
     }
 
-    public static int getIdUser(String name,String pwd) throws SQLException {
+    public static int getIdUser(String username,String pwd) throws SQLException {
         Statement s;
         String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
-        String sql =  String.format("SELECT id from users WHERE name='%1$s' AND password='%2$s' ",name,pwd);
+        String sql =  String.format("SELECT id from users WHERE username='%1$s' AND password='%2$s' ",username,pwd);
         int res=-1;
         try {
             s = con.createStatement();
@@ -198,7 +224,7 @@ public class db {
     public static User getUserInfo(int id) throws SQLException {
         Statement s;
         String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
-        String sql =  String.format("SELECT id,email,name,number,role,address from users WHERE id=%1$d ",id);
+        String sql =  String.format("SELECT id,email,username,nom,prenom,number,role,address from users WHERE id=%1$d ",id);
         User result = new User();
         try {
             s = con.createStatement();
@@ -206,11 +232,12 @@ public class db {
             while (resultSet.next()) {
                 result.setId(resultSet.getInt("id"));
                 result.setEmail(resultSet.getString("email"));
-                result.setName(resultSet.getString("name"));
+                result.setUsername(resultSet.getString("username"));
+                result.setNom(resultSet.getString("nom"));
+                result.setPrenom(resultSet.getString("prenom"));
                 result.setNum(resultSet.getString("number"));
                 result.setRole(resultSet.getString("role"));
                 result.setAddress(resultSet.getString("address"));
-                // ...
             }
         } catch (SQLException e) {
             logger.debug("erreur dans la requête sql");
@@ -219,27 +246,7 @@ public class db {
         return result;
     }
 
-    public static void template() throws SQLException {
-        Statement s;
-        String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
-        String sql = "select * from info ";
-        try {
-            s = con.createStatement();
-            ResultSet resultSet = s.executeQuery(sql);
-            while (resultSet.next()) {
-                String titre = resultSet.getString("");
-                java.sql.Date dateSortie = resultSet.getDate("date");
-                long duree = resultSet.getLong("duree");
-
-            }
-
-        } catch (SQLException e) {
-            logger.debug("erreur dans la requête sql");
-            throw e;
-        }
-    }
-
-    public static void addTash(String address, int level, String state) throws SQLException {
+    public static void addTrash(String address, int level, String state) throws SQLException {
         Statement s;
         String sql =  String.format("INSERT INTO trash (address,level,state) values('%1$s',%2$d,'%3$s')",address,level,state);
         try {

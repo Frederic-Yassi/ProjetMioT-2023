@@ -9,20 +9,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
     private static Logger logger = Logger.getLogger(UserController.class);
     @PostMapping("/api/user/add")
     public void addUser(
             @PathParam("email") String email,
-            @PathParam("name") String name,
+            @PathParam("username") String username,
+            @PathParam("nom") String nom,
+            @PathParam("prenom") String prenom,
             @PathParam("pwd") String pwd,
             @PathParam("role") String role,
             @PathParam("num") String num,
             @PathParam("address") String address) {
         try{
             db.connect();
-            db.addUser(email,name,pwd,role,num,address);
-            int id = getId(name,pwd);
+            db.addUser(email,username,nom,prenom,pwd,role,num,address);
+            int id = getId(username,pwd);
             db.deconnect();
             logger.info("nouvel utilisateur ajouté :"+id);
         }
@@ -36,10 +39,10 @@ public class UserController {
     public void deleteUser(@PathParam("id") int id) {
         try {
             db.connect();
-            String name = db.getUserInfo(id).getName();
+            String username = db.getUserInfo(id).getUsername();
             db.deleteUser(id);
             db.deconnect();
-            logger.info("utilisateur "+name+"supprimé");
+            logger.info("utilisateur "+username+"supprimé");
         }
         catch (Exception e){
             logger.error(e);
@@ -62,14 +65,42 @@ public class UserController {
         }
     }
 
-    @PutMapping("/api/user/modify/name")
-    public void modifyName(@PathParam("id") int id,
-                           @PathParam("name") String name) {
+    @PutMapping("/api/user/modify/username")
+    public void modifyUsername(@PathParam("id") int id,
+                           @PathParam("username") String username) {
         try{
             db.connect();
-            db.modifyNameUser(id,name);
+            db.modifyUsernameUser(id,username);
+            db.deconnect();
+            logger.info("modification de l'username de l'utilisateur :"+id);
+        }
+        catch (Exception e){
+            logger.error(e);
+        }
+    }
+
+    @PutMapping("/api/user/modify/nom")
+    public void modifyNom(@PathParam("id") int id,
+                           @PathParam("nom") String nom) {
+        try{
+            db.connect();
+            db.modifyNomUser(id,nom);
             db.deconnect();
             logger.info("modification de nom de l'utilisateur :"+id);
+        }
+        catch (Exception e){
+            logger.error(e);
+        }
+    }
+
+    @PutMapping("/api/user/modify/prenom")
+    public void modifyPrenom(@PathParam("id") int id,
+                          @PathParam("prenom") String prenom) {
+        try{
+            db.connect();
+            db.modifyPrenomUser(id,prenom);
+            db.deconnect();
+            logger.info("modification de prenom de l'utilisateur :"+id);
         }
         catch (Exception e){
             logger.error(e);
@@ -136,12 +167,12 @@ public class UserController {
     }
 
     @GetMapping("/api/user/get")
-    public int getId(@PathParam("name") String name,
+    public int getId(@PathParam("username") String username,
                      @PathParam("pwd") String pwd) {
         int res=-1;
         try{
             db.connect();
-            res=db.getIdUser(name,pwd);
+            res=db.getIdUser(username,pwd);
             db.deconnect();
             logger.info("recherche Id");
         }

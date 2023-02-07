@@ -1,11 +1,20 @@
 version: "3.7"
 services:
+  front :
+    container_name: webapp
+    build: ProjetMioT-2023-Front/.
+    restart: always
+    ports:
+      - 8090:8080
+    depends_on:
+      - maria_db
+
   backend:
     container_name: spring-app
     build: ProjetMioT-2023-Spring/.
     restart: always
     ports:
-      - 8084:8080
+      - 8084:8084
     depends_on:
       - maria_db
     environment:
@@ -16,7 +25,7 @@ services:
 
   maria_db:
     container_name: mariadb-app
-    image: "mariadb:10.5.8"
+    image: mariadb:10.5.8
     restart: always
     ports:
       - 3306:3306
@@ -24,6 +33,7 @@ services:
       MYSQL_DATABASE: mydb
       MYSQL_ROOT_PASSWORD: passwordroot
     volumes:
-      - ./db_data:/var/lib/mysql 
-
+      - ./db_data:/var/lib/mysql
+      - ./scripts:/scripts  
  
+  

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jan 13, 2023 at 06:39 PM
+-- Generation Time: Jan 31, 2023 at 02:36 PM
 -- Server version: 8.0.18
 -- PHP Version: 7.3.12
 
@@ -12,7 +12,7 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
+CREATE DATABASE IF NOT EXISTS mydb ;
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -27,7 +27,8 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `trash`
 --
-CREATE DATABASE IF NOT EXISTS mydb ;
+
+
 USE mydb;
 
 DROP TABLE IF EXISTS `trash`;
@@ -56,11 +57,13 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(3) NOT NULL AUTO_INCREMENT,
   `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `name` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `role` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `role` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `number` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `address` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `nom` varchar(50) DEFAULT NULL,
+  `prenom` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -68,10 +71,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `name`, `password`, `role`, `number`, `address`) VALUES
-(1, 'admin@gmail.com', 'admin', 'admin', 'admin', '2222222', 'France'),
-(2, 'itachi@gmail.com', 'user', 'password', 'locataire', 'null', 'Port-Bouet'),
-(3, 'hey@gd.fr', 'hey', 'pouuu', 'eboueur', '00000000', 'Asie');
+INSERT INTO `users` (`id`, `email`, `username`, `password`, `role`, `number`, `address`, `nom`, `prenom`) VALUES
+(1, 'admin@gmail.com', 'admin', 'admin', 'admin', '2222222', 'France', 'Alache', 'Kassi '),
+(2, 'itachi@gmail.com', 'user', 'password', 'locataire', 'null', 'Port-Bouet', 'Avognan', 'Laeti'),
+(3, 'hey@gd.fr', 'hey', 'pouuu', 'eboueur', '00000000', 'Asie', 'Soumagnin', 'Akoua');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

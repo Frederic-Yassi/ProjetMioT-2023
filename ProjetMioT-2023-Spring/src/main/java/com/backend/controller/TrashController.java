@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TrashController {
     private static Logger logger = Logger.getLogger(TrashController.class);
     @PostMapping("/api/trash/add")
@@ -20,9 +21,9 @@ public class TrashController {
             @PathParam("level") int level) {
         try {
             db.connect();
-            db.addTash(address, level, state);
+            db.addTrash(address, level, state);
             db.deconnect();
-            logger.info("nouvelle poubelle à "+address+"ajouté");
+            logger.info("ajout de poubelle à "+address);
         }
         catch (Exception e){
             logger.error(e);
@@ -35,6 +36,7 @@ public class TrashController {
             db.connect();
             db.deleteAddress(address);
             db.deconnect();
+            logger.info("suppression d'une poubelle");
         }
         catch (Exception e){
             logger.error(e);
@@ -48,6 +50,7 @@ public class TrashController {
             db.connect();
             db.modifyAddressTrash(oldAddress,newAddress);
             db.deconnect();
+            logger.info("changement d'adresse d'une poubelle");
         }
         catch (Exception e){
             logger.error((e));
@@ -61,6 +64,7 @@ public class TrashController {
             db.connect();
             db.modifyLevelTrash(address,level);
             db.deconnect();
+            logger.info("changement de niveau de la poubelle à"+address);
         }
         catch (Exception e){
             logger.error(e);
@@ -74,6 +78,7 @@ public class TrashController {
             db.connect();
             db.modifyStateTrash(address,state);
             db.deconnect();
+            logger.info("changement d'etat de la poubelle à"+address);
         }
         catch (Exception e){
             logger.error(e);
@@ -88,6 +93,7 @@ public class TrashController {
             db.connect();
             res =db.getAllTrash();
             db.deconnect();
+            logger.info("recuperation de la liste des poubelles");
         }
         catch (Exception e){
             logger.error(e);
@@ -102,6 +108,7 @@ public class TrashController {
             db.connect();
             res = db.getTrashInfo(address);
             db.deconnect();
+            logger.info("recuperation des infos de la poubelle à :"+address);
         }
         catch (Exception e){
             logger.error(e);
