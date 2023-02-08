@@ -33,7 +33,7 @@ services:
       MYSQL_DATABASE: mydb
       MYSQL_ROOT_PASSWORD: passwordroot
     volumes:
-      - ./db_data:/var/lib/mysql
+      #- ./db_data:/var/lib/mysql
       - ./scripts:/scripts  
  
   

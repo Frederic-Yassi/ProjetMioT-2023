@@ -44,8 +44,9 @@ CREATE TABLE IF NOT EXISTS `trash` (
 --
 
 INSERT INTO `trash` (`address`, `level`, `state`) VALUES
-('13 Rue Louis arretche', 70, 'on'),
-('3 Avenue des porcos', 30, 'off');
+('France', 70, 'on'),
+('Afrique', 50, 'on'),
+('Asie', 30, 'off');
 
 -- --------------------------------------------------------
 
@@ -72,9 +73,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `password`, `role`, `number`, `address`, `nom`, `prenom`) VALUES
-(1, 'admin@gmail.com', 'admin', 'admin', 'admin', '2222222', 'France', 'Alache', 'Kassi '),
-(2, 'itachi@gmail.com', 'user', 'password', 'locataire', 'null', 'Port-Bouet', 'Avognan', 'Laeti'),
-(3, 'hey@gd.fr', 'hey', 'pouuu', 'eboueur', '00000000', 'Asie', 'Soumagnin', 'Akoua');
+(1, 'admin@gmail.com', 'admin', 'admin', 'admin', '2222222', 'France', 'Alache', 'Kassi'),
+(2, 'locataire@yahoo.fr', 'locataire', 'locataire', 'locataire', '00000000', 'Asie', 'akissi', 'marie'),
+(3, 'eboueur@hotmail.com', 'eboueur', 'eboueur', 'eboueur', '00000000', 'Afrique', 'Gohou', 'Michel'),
+(4, 'olivia@atos.com', 'olivia', 'olivia', 'locataire', '00000000', 'Asie', 'Olivia', 'Avognan');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
