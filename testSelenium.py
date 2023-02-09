@@ -68,7 +68,7 @@ class Testlogin(unittest.TestCase):
                 current_mail=users_list[0][u]
                 current_pwd=users_list[1][u]
                 # ouverture du navigateur
-                self.driver.get('http://localhost:8080/ProjetMiot/index')
+                self.driver.get('http://localhost:8090/ProjetMiot/index')
                 #agrandir la fenetre
                 self.driver.maximize_window()
                 time.sleep(2)
@@ -99,7 +99,7 @@ class Testlogin(unittest.TestCase):
                 
                 #verifier la bonne authentification avec les bons champs: mail et mot de pass
                 
-                if (self.driver.current_url=="http://localhost:8080/ProjetMiot/etat_poubelle"):
+                if (self.driver.current_url=="http://localhost:8090/ProjetMiot/etat_poubelle"):
                 
                         print("_____________success with user:{}__________".format(current_mail))
                         time.sleep(3)
@@ -110,7 +110,7 @@ class Testlogin(unittest.TestCase):
                             #cliquer pour ajouter une poubelle
                             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#accordionSidebar > li:nth-child(2) > a > span"))).click()
                             #Verifier qu'on est bien sur la page d'ajout de poubelle
-                            assert self.driver.current_url=="http://localhost:8080/ProjetMiot/ajout_poubelle"
+                            assert self.driver.current_url=="http://localhost:8090/ProjetMiot/ajout_poubelle"
                             #On reseigne une poubelle 
                             search_box = self.driver.find_element(By.CSS_SELECTOR,"#adresse_poubelle")
                             search_box.send_keys("ESIR")
@@ -123,7 +123,7 @@ class Testlogin(unittest.TestCase):
                             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#content > div > div > div.col-lg-8 > div:nth-child(2) > div > div > div.card-body > form > a"))).click()
                             #Verifier qu'on arrive bien sur le dashboard des poubelles
                             time.sleep(3)
-                            assert self.driver.current_url=="http://localhost:8080/ProjetMiot/liste_poubelles"
+                            assert self.driver.current_url=="http://localhost:8090/ProjetMiot/liste_poubelles"
                             
                             #Verifier qu'on peut supprimer une poubelle
                             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#dataTable > tbody > tr:nth-child(4) > td:nth-child(6) > i.fa.fa-times"))).click()
@@ -132,7 +132,7 @@ class Testlogin(unittest.TestCase):
                            
                             time.sleep(5)
                             #On verifie qu'on est bien sur la page de la liste des poubelles 
-                            assert self.driver.current_url=="http://localhost:8080/ProjetMiot/liste_poubelles"
+                            assert self.driver.current_url=="http://localhost:8090/ProjetMiot/liste_poubelles"
                             #Verifier qu'on peut modifier
                             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#dataTable > tbody > tr:nth-child(3) > td:nth-child(6) > i.fa.fa-pencil"))).click()
                             #Renseigner les chhamps de la poubelle qu'on souhaite enregistrer
@@ -194,21 +194,21 @@ class Testlogin(unittest.TestCase):
                             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#content > div > div.row.mb-3 > div.col-lg-8 > div:nth-child(2) > div > div > div.card-body > form > a"))).click()
                             time.sleep(3)
                             #On verifier que c'est bienb renseigné
-                            assert self.driver.current_url=="http://localhost:8080/ProjetMiot/liste_utilisateurs"
+                            assert self.driver.current_url=="http://localhost:8090/ProjetMiot/liste_utilisateurs"
                             time.sleep(1)
                             
                             #se deconnecter 
                             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#content > nav > div > ul > li.nav-item.dropdown.no-arrow.mx-1 > div > a > i"))).click()
 
                             #On verifie qu'on est bie deconnecté 
-                            assert self.driver.current_url=="http://localhost:8080/ProjetMiot/logout"
+                            assert self.driver.current_url=="http://localhost:8090/ProjetMiot/logout"
                             time.sleep(1)
                             
 
                      #______________locataire functionnalities_____________________
                         if(current_mail=="locataire"):
                             #On verifie qu'on est bien sur la page ou on voit l'etat des poubelle
-                            assert self.driver.current_url=="http://localhost:8080/ProjetMiot/etat_poubelle"
+                            assert self.driver.current_url=="http://localhost:8090/ProjetMiot/etat_poubelle"
                 
                             #Verifie qu'on voit bien locataire à gauche de l'ecran 
                             locataire=self.driver.find_element(By.CSS_SELECTOR,"#content > nav > div > ul > li:nth-child(4) > div > a > span")
@@ -217,37 +217,37 @@ class Testlogin(unittest.TestCase):
                             #On clic sur le bouton profit 
                             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#accordionSidebar > li:nth-child(2) > a > span")))
                             #time.sleep(5)
-                            #assert self.driver.current_url=="http://localhost:8080/ProjetMiot/profil"
+                            #assert self.driver.current_url=="http://localhost:8090/ProjetMiot/profil"
                             
                             
                              #se deconnecter 
                             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#content > nav > div > ul > li.nav-item.dropdown.no-arrow.mx-1 > div > a > i"))).click()
 
                             #On verifie qu'on est bie deconnecté 
-                            assert self.driver.current_url=="http://localhost:8080/ProjetMiot/logout"
+                            assert self.driver.current_url=="http://localhost:8090/ProjetMiot/logout"
                             time.sleep(1)
                             
                             
                      #______________eboueur functionnalities_____________________
                         if(current_mail=="eboueur"):
-                            assert self.driver.current_url=="http://localhost:8080/ProjetMiot/etat_poubelle"
+                            assert self.driver.current_url=="http://localhost:8090/ProjetMiot/etat_poubelle"
                             
                         #Cliquer sur le bouton "profit" 
                             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#accordionSidebar > li:nth-child(1) > a > span")))
                         #On verifie qu'il voit bien son profit
                             #time.sleep(5)
-                           # assert self.driver.current_url=="http://localhost:8080/ProjetMiot/profil"
+                           # assert self.driver.current_url=="http://localhost:8090/ProjetMiot/profil"
                                  
                         #on clic sur la liste des poubelle 
                             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#accordionSidebar > li:nth-child(2) > a > span")))
                         #On verifie qu'on a la liste des poubelle
-                            #assert self.driver.current_url=="http://localhost:8080/ProjetMiot/liste_poubelles"
+                            #assert self.driver.current_url=="http://localhost:8090/ProjetMiot/liste_poubelles"
                             
                          #se deconnecter 
                             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#content > nav > div > ul > li.nav-item.dropdown.no-arrow.mx-1 > div > a > i"))).click()
 
                         #On verifie qu'on est bie deconnecté 
-                            assert self.driver.current_url=="http://localhost:8080/ProjetMiot/logout"
+                            assert self.driver.current_url=="http://localhost:8090/ProjetMiot/logout"
                             time.sleep(1)
                       
                             
