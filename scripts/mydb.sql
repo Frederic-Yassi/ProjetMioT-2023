@@ -74,8 +74,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `email`, `username`, `password`, `role`, `number`, `address`, `nom`, `prenom`) VALUES
 (1, 'admin@gmail.com', 'admin', 'admin', 'Admin', '2222222', 'France', 'Alache', 'Kassi'),
-(2, 'locataire@yahoo.fr', 'locataire', 'Locataire', 'locataire', '00000000', 'Asie', 'akissi', 'marie'),
-(3, 'eboueur@hotmail.com', 'eboueur', 'Eboueur', 'eboueur', '00000000', 'Afrique', 'Gohou', 'Michel'),
+(2, 'locataire@yahoo.fr', 'locataire', 'locataire', 'Locataire', '00000000', 'Asie', 'akissi', 'marie'),
+(3, 'eboueur@hotmail.com', 'eboueur', 'eboueur', 'Eboueur', '00000000', 'Afrique', 'Gohou', 'Michel'),
 (4, 'olivia@atos.com', 'olivia', 'olivia', 'Locataire', '00000000', 'Asie', 'Olivia', 'Avognan');
 COMMIT;
 

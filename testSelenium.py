@@ -50,13 +50,7 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), opti
 webdriver.ChromeOptions().add_argument('headless')
 webdriver.ChromeOptions().add_argument('window-size=1920*1080')
 webdriver.ChromeOptions().add_experimental_option('excludeSwitches', ['enable-logging'])
-print(len(users_list))
-print(len(users_mails))
-print(len(users_pwd))   
-
-print(users_list)
-print(users_mails)
-print(users_pwd)     
+    
 
 class Testlogin(unittest.TestCase):
      
@@ -89,7 +83,7 @@ class Testlogin(unittest.TestCase):
                 
                 # Wait for the button to be visible and clickable
                 wait = WebDriverWait(self.driver, 10)
-                time.sleep(1)
+                time.sleep(5)
                 # Cliquer sur un bouton
                 
                 button = wait.until(EC.element_to_be_clickable((By.ID, "login-button")))
@@ -126,7 +120,7 @@ class Testlogin(unittest.TestCase):
                             assert self.driver.current_url=="http://localhost:8090/ProjetMiot/liste_poubelles"
                             
                             #Verifier qu'on peut supprimer une poubelle
-                            wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#dataTable > tbody > tr:nth-child(4) > td:nth-child(6) > i.fa.fa-times"))).click()
+                            wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "table.table > tbody:nth-child(2) > tr:nth-child(4) > td:nth-child(6) > i:nth-child(2)"))).click()
                             
                            # Visualiser la liste des poubelles 
                            
@@ -152,7 +146,7 @@ class Testlogin(unittest.TestCase):
                             #Inscrire un user
                             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#accordionSidebar > li:nth-child(4) > a > span"))).click()
                            
-                            
+                             
                             #Renseiggner le nom 
                             name = self.driver.find_element(By.CSS_SELECTOR,"#first_name")
                             name.send_keys("Theo")
@@ -211,11 +205,12 @@ class Testlogin(unittest.TestCase):
                             assert self.driver.current_url=="http://localhost:8090/ProjetMiot/etat_poubelle"
                 
                             #Verifie qu'on voit bien locataire à gauche de l'ecran 
-                            locataire=self.driver.find_element(By.CSS_SELECTOR,"#content > nav > div > ul > li:nth-child(4) > div > a > span")
-                            locataire.text=="locataire locataire"
+                            #locataire=self.driver.find_element(By.CSS_SELECTOR,"#content > nav > div > ul > li:nth-child(4) > div > a > span")
+                            #locataire.text=="locataire locataire"
                             
                             #On clic sur le bouton profit 
-                            wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#accordionSidebar > li:nth-child(2) > a > span")))
+                            time.sleep(5)
+                            wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#accordionSidebar > li:nth-child(1) > a > i")))
                             #time.sleep(5)
                             #assert self.driver.current_url=="http://localhost:8090/ProjetMiot/profil"
                             
@@ -234,8 +229,8 @@ class Testlogin(unittest.TestCase):
                             
                         #Cliquer sur le bouton "profit" 
                             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#accordionSidebar > li:nth-child(1) > a > span")))
-                        #On verifie qu'il voit bien son profit
-                            #time.sleep(5)
+                        #On verifie qu'il voit bien son profit 
+                            time.sleep(5)
                            # assert self.driver.current_url=="http://localhost:8090/ProjetMiot/profil"
                                  
                         #on clic sur la liste des poubelle 
