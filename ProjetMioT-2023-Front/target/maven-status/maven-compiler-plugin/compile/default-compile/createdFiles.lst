@@ -1,0 +1,13 @@
+web\DashboardServlet$1.class
+web\ModelTrash.class
+metier\USer.class
+web\DashboardServlet$2.class
+web\DashboardServlet$3.class
+web\DashboardServlet.class
+web\LogoutServlet.class
+metier\UserImpl.class
+web\ModelUser.class
+metier\TrashImpl.class
+metier\TRash.class
+web\LoginServlet.class
+web\IndexServlet.class
