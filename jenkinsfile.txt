@@ -1,0 +1,73 @@
+pipeline{
+    agent any
+    stages {
+        stage("clone projet"){
+            steps{
+                sh'''
+                    echo "clone project"
+                    if [ -d "ProjetMioT-2023" ]; then
+                        sudo rm -rf "ProjetMioT-2023"
+                        echo "Le dossier a été supprimé avec succès."
+                    else
+                        echo "Le dossier n'existe pas."
+                    fi
+                    git clone https://github.com/Frederic-Yassi/ProjetMioT-2023.git/
+                    cd ProjetMioT-2023
+                    ls
+                '''
+            }
+        }
+        
+        stage("build front"){
+            steps{
+                sh '''
+                    echo "build front"
+                    cd ProjetMioT-2023/ProjetMioT-2023-Front
+                    sudo docker build -t front .
+                '''
+                
+            }
+        }
+        stage("build backend"){
+            steps{
+                sh '''
+                    echo "build backend"
+                    cd ProjetMioT-2023/ProjetMioT-2023-Spring
+                    sudo docker build -t backend .
+                    cd ..
+                '''
+            }
+        }
+      
+       
+        stage("test selenium"){
+            steps{
+                sh '''
+                    echo "tests"
+                    cd ProjetMioT-2023
+                    sudo docker-compose up -d
+                    sleep 90
+                    sh scripts/createBdd.sh
+                    sleep 10
+                    python3 testSelenium.py ###############pas sur que ca marche avec jenkins 
+                    sudo docker-compose down 
+                '''
+            }
+        }
+        
+        stage("deploiement"){
+            steps{
+                echo "deploiement"
+                sh '''
+                    cd ProjetMioT-2023
+                    sudo docker-compose up -d
+                    sleep 90
+                    sh scripts/createBdd.sh
+                    cd ..
+                    sudo rm -r *
+                '''
+            }
+        }
+        
+    }
+}
